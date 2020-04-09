@@ -19,7 +19,7 @@
       "android",
       "web"
     ],
-    "icon": "./assets/icon.png",
+    "icon": "./assets/icon.jpg",
     "version": "2.0.0",
     "orientation": "portrait",
     "splash": {

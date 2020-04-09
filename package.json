@@ -15,7 +15,7 @@
     "@react-navigation/stack": "^5.1.1",
     "@react-navigation/tabs": "^0.0.0-alpha.12",
     "axios": "^0.19.2",
-    "expo": "^36.0.0",
+    "expo": "^37.0.0",
     "expo-cli": "3.13.1",
     "expo-linear-gradient": "~8.0.0",
     "global": "^4.4.0",
@@ -32,7 +32,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
-    "babel-preset-expo": "^8.0.0"
+    "babel-preset-expo": "^8.1.0"
   },
   "private": true
 }
