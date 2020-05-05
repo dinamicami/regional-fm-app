@@ -53,7 +53,7 @@ function HomeDrawer() {
     >
       <Drawer.Screen name="Home" component={Inicial} options={{ title: 'Página Inicial' }} />
       <Drawer.Screen name="Podcasts" component={Podcasts} options={{ title: 'Podcasts' }}  />
-      <Drawer.Screen name="Streaming" component={Streaming} options={{ title: 'Streaming' }}  />
+      <Drawer.Screen name="Streaming" component={Streaming} options={{ title: 'Regional Lives' }}  />
       <Drawer.Screen name="Contato" component={Contato} options={{ title: 'Contato' }} />
       <Drawer.Screen name="Programacao" component={Programacao} options={{ title: 'Programação' }}  />
       <Drawer.Screen name="Feedback" component={Formulario} options={{ title: 'Feedback' }}  />
@@ -74,7 +74,7 @@ function NewsDrawer() {
     >
       <Drawer.Screen name="News" component={News} options={{ title: 'Acontecendo agora' }} />
       <Drawer.Screen name="Podcasts" component={Podcasts} options={{ title: 'Podcasts' }}  />
-      <Drawer.Screen name="Streaming" component={Streaming} options={{ title: 'Streaming' }}  />
+      <Drawer.Screen name="Streaming" component={Streaming} options={{ title: 'Regional Lives' }}  />
       <Drawer.Screen name="Contato" component={Contato} options={{ title: 'Contato' }} />
       <Drawer.Screen name="Programacao" component={Programacao} options={{ title: 'Programação' }}  />
       <Drawer.Screen name="Feedback" component={Formulario} options={{ title: 'Feedback' }}  />
@@ -95,7 +95,7 @@ function BackstageDrawer() {
     >
       <Drawer.Screen name="Backstage" component={Backstage} />
       <Drawer.Screen name="Podcasts" component={Podcasts} options={{ title: 'Podcasts' }}  />
-      <Drawer.Screen name="Streaming" component={Streaming} options={{ title: 'Streaming' }}  />
+      <Drawer.Screen name="Streaming" component={Streaming} options={{ title: 'Regional Lives' }}  />
       <Drawer.Screen name="Contato" component={Contato} options={{ title: 'Contato' }} />
       <Drawer.Screen name="Programacao" component={Programacao} options={{ title: 'Programação' }}  />
       <Drawer.Screen name="Feedback" component={Formulario} options={{ title: 'Feedback' }}  />
@@ -116,7 +116,7 @@ function AnuncieDrawer() {
     >
       <Drawer.Screen name="Anuncie" component={Anuncie} />
       <Drawer.Screen name="Podcasts" component={Podcasts} options={{ title: 'Podcasts' }}  />
-      <Drawer.Screen name="Streaming" component={Streaming} options={{ title: 'Streaming' }}  />
+      <Drawer.Screen name="Streaming" component={Streaming} options={{ title: 'Regional Lives' }}  />
       <Drawer.Screen name="Contato" component={Contato} options={{ title: 'Contato' }} />
       <Drawer.Screen name="Programacao" component={Programacao} options={{ title: 'Programação' }}  />
       <Drawer.Screen name="Feedback" component={Formulario} options={{ title: 'Feedback' }}  />

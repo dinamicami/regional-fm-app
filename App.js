@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { ScreenOrientation } from 'expo';
+import * as ScreenOrientation from 'expo-screen-orientation';
 
 // Here's where is the most part of the application 
 import Routes from './src/routes'
