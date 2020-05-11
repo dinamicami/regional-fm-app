@@ -53,7 +53,7 @@ function HomeDrawer() {
     >
       <Drawer.Screen name="Home" component={Inicial} options={{ title: 'Página Inicial' }} />
       <Drawer.Screen name="Podcasts" component={Podcasts} options={{ title: 'Podcasts' }}  />
-      <Drawer.Screen name="Streaming" component={Streaming} options={{ title: 'Streaming' }}  />
+      <Drawer.Screen name="Streaming" component={Streaming} options={{ title: 'Regional Lives' }}  />
       <Drawer.Screen name="Contato" component={Contato} options={{ title: 'Contato' }} />
       <Drawer.Screen name="Programacao" component={Programacao} options={{ title: 'Programação' }}  />
       <Drawer.Screen name="Feedback" component={Formulario} options={{ title: 'Feedback' }}  />
@@ -74,7 +74,7 @@ function NewsDrawer() {
     >
       <Drawer.Screen name="News" component={News} options={{ title: 'Acontecendo agora' }} />
       <Drawer.Screen name="Podcasts" component={Podcasts} options={{ title: 'Podcasts' }}  />
-      <Drawer.Screen name="Streaming" component={Streaming} options={{ title: 'Streaming' }}  />
+      <Drawer.Screen name="Streaming" component={Streaming} options={{ title: 'Regional Lives' }}  />
       <Drawer.Screen name="Contato" component={Contato} options={{ title: 'Contato' }} />
       <Drawer.Screen name="Programacao" component={Programacao} options={{ title: 'Programação' }}  />
       <Drawer.Screen name="Feedback" component={Formulario} options={{ title: 'Feedback' }}  />
@@ -95,7 +95,7 @@ function BackstageDrawer() {
     >
       <Drawer.Screen name="Backstage" component={Backstage} />
       <Drawer.Screen name="Podcasts" component={Podcasts} options={{ title: 'Podcasts' }}  />
-      <Drawer.Screen name="Streaming" component={Streaming} options={{ title: 'Streaming' }}  />
+      <Drawer.Screen name="Streaming" component={Streaming} options={{ title: 'Regional Lives' }}  />
       <Drawer.Screen name="Contato" component={Contato} options={{ title: 'Contato' }} />
       <Drawer.Screen name="Programacao" component={Programacao} options={{ title: 'Programação' }}  />
       <Drawer.Screen name="Feedback" component={Formulario} options={{ title: 'Feedback' }}  />
@@ -116,7 +116,7 @@ function AnuncieDrawer() {
     >
       <Drawer.Screen name="Anuncie" component={Anuncie} />
       <Drawer.Screen name="Podcasts" component={Podcasts} options={{ title: 'Podcasts' }}  />
-      <Drawer.Screen name="Streaming" component={Streaming} options={{ title: 'Streaming' }}  />
+      <Drawer.Screen name="Streaming" component={Streaming} options={{ title: 'Regional Lives' }}  />
       <Drawer.Screen name="Contato" component={Contato} options={{ title: 'Contato' }} />
       <Drawer.Screen name="Programacao" component={Programacao} options={{ title: 'Programação' }}  />
       <Drawer.Screen name="Feedback" component={Formulario} options={{ title: 'Feedback' }}  />
@@ -183,14 +183,14 @@ const tabScreenOptions = ({ route }) => ({
     if (route.name === 'Home') {
       iconName = 'home'
     } else if (route.name === 'News') {
-      iconName = 'today'
+      iconName = 'calendar'
     } else if (route.name === 'Backstage') {
-      iconName = 'collections'
+      iconName = 'image-multiple'
     } else if (route.name === 'Anuncie') {
-      iconName = 'share'
+      iconName = 'bullhorn'
     }
 
-    return <Icon name={iconName} size={size} color={color} />;
+    return <Icon type="material-community" name={iconName} size={size} color={color} />;
   },
 }) 
 const tabBarOptions = {
@@ -224,26 +224,26 @@ const screenOptions = ({ route }) => ({
     if (route.name === 'Backstage') {
       iconName = 'star'
     } else if (route.name === 'Contato') {
-      iconName = 'local-phone'
+      iconName = 'phone'
     } else if (route.name === 'Programacao') {
-      iconName = 'today'
+      iconName = 'calendar-check'
     } else if (route.name === 'Feedback') {
-      iconName = 'question-answer'
+      iconName = 'message-alert'
     } else if (route.name === 'Podcasts') {
-      iconName = 'mic'
+      iconName = 'microphone'
     } else if (route.name === 'Streaming') {
-      iconName = 'live-tv'
+      iconName = 'television'
     } else if (route.name === 'Home') {
       iconName = 'home'
     } else if (route.name === 'News') {
-      iconName = 'today'
+      iconName = 'calendar'
     } else if (route.name === 'Backstage') {
-      iconName = 'collection'
+      iconName = 'image-multiple'
     } else if (route.name === 'Anuncie') {
-      iconName = 'share'
+      iconName = 'bullhorn'
     }
     
-    return <Icon name={iconName} size={size} color={color} />
+    return <Icon type="material-community" name={iconName} size={size} color={color} />
   }
 })
 
