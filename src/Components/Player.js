@@ -9,9 +9,9 @@ import { LinearGradient } from 'expo-linear-gradient';
 
 // Main function
 export default function Player() {
-  const [ count, setCount ] = useState(0)
-  const [ iconName, setIconName ] = useState('play-arrow')
-  const [ stream, setStream ] = useState('')
+  const [ count, setCount ] = useState(1)
+  const [ iconName, setIconName ] = useState('pause')
+  const [ stream, setStream ] = useState('http://11.fm5.com.br:8104/stream')
 
   // Play/pause function
   function setPlayerStatus() {

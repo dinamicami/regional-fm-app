@@ -8,7 +8,7 @@
 // On this file bottom are the navigators settings up 
 
 import React from 'react'
-import { Image, TouchableOpacity, StyleSheet, View } from 'react-native'
+import { Image, TouchableOpacity, StatusBar, View, Platform } from 'react-native'
 import { Icon } from 'react-native-elements'
 
 // React Navigation
@@ -276,7 +276,7 @@ const options = ({ navigation }) => ({
       style={{ flex: 1, paddingTop: 5, backgroundColor: '#111' ,justifyContent: 'center', alignItems: 'center', }}
     >
       <Image
-        style={{ resizeMode: 'contain', width: 90 }}
+        style={{ resizeMode: 'contain', width: 90, marginTop: Platform.OS === 'android' ? StatusBar.currentHeight : 'auto' }}
         source={require('../assets/images/logo-regional-fm.png')}
       />
     </View>
