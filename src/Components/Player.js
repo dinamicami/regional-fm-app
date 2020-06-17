@@ -2,7 +2,7 @@
 // Imported by ../../App.js
 
 import React, { useState } from 'react'
-import { View, StyleSheet, TouchableOpacity, Platform } from 'react-native'
+import { View, StyleSheet, TouchableOpacity, Platform, SafeAreaView } from 'react-native'
 import { Icon } from 'react-native-elements'
 import { WebView } from 'react-native-webview'
 import { LinearGradient } from 'expo-linear-gradient';
@@ -31,47 +31,49 @@ export default function Player() {
 
   // Body
   return(
-    <View style={styles.container}>
-      <View style={styles.controls}>
+    <SafeAreaView>
+      <View style={styles.container}>
+        <View style={styles.controls}>
 
-        {/* Platform adaptation */}
-          {
-            Platform.select({
-                // iOS devices doesn't allow the Expo's Linear gradient component
-              ios: (
-                <TouchableOpacity 
-                  style={styles.button} 
-                  onPress={() => { setPlayerStatus() }}
-                >
-                    <Icon name={iconName} size={40} color="#fff"/>
-                </TouchableOpacity>
-              ),
-
-                // Android
-              android: (
-                <TouchableOpacity onPress={() => { setPlayerStatus() }}>
-                  <LinearGradient
-                    colors={['#ed2024', '#ffaa00']}
-                    style={styles.button}
+          {/* Platform adaptation */}
+            {
+              Platform.select({
+                  // iOS devices doesn't allow the Expo's Linear gradient component
+                ios: (
+                  <TouchableOpacity 
+                    style={styles.button} 
+                    onPress={() => { setPlayerStatus() }}
                   >
-                    <Icon name={iconName} size={40} color="#fff"/>
-                  </LinearGradient>
-                </TouchableOpacity>
-              )
-            })
-          }
+                      <Icon name={iconName} size={40} color="#fff"/>
+                  </TouchableOpacity>
+                ),
+
+                  // Android
+                android: (
+                  <TouchableOpacity onPress={() => { setPlayerStatus() }}>
+                    <LinearGradient
+                      colors={['#ed2024', '#ffaa00']}
+                      style={styles.button}
+                    >
+                      <Icon name={iconName} size={40} color="#fff"/>
+                    </LinearGradient>
+                  </TouchableOpacity>
+                )
+              })
+            }
+        </View>
+
+        {/* Invisible WebView */}
+
+        <WebView
+          source={{uri: stream}}
+          mediaPlaybackRequiresUserAction={false}
+          style={{
+            opacity: 0
+          }}
+        />
       </View>
-
-      {/* Invisible WebView */}
-
-      <WebView
-        source={{uri: stream}}
-        mediaPlaybackRequiresUserAction={false}
-        style={{
-          opacity: 0
-        }}
-      />
-    </View>
+    </SafeAreaView>
   )
 }
 

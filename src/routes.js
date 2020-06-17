@@ -276,7 +276,7 @@ const options = ({ navigation }) => ({
       style={{ flex: 1, paddingTop: 5, backgroundColor: '#111' ,justifyContent: 'center', alignItems: 'center', }}
     >
       <Image
-        style={{ resizeMode: 'contain', width: 90, marginTop: Platform.OS === 'android' ? StatusBar.currentHeight : 'auto' }}
+        style={{ resizeMode: 'contain', width: 90, marginTop: StatusBar.currentHeight }}
         source={require('../assets/images/logo-regional-fm.png')}
       />
     </View>
