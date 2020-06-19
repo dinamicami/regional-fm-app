@@ -56,7 +56,7 @@ function HomeDrawer() {
       <Drawer.Screen name="Streaming" component={Streaming} options={{ title: 'Regional Lives' }}  />
       <Drawer.Screen name="Contato" component={Contato} options={{ title: 'Contato' }} />
       <Drawer.Screen name="Programacao" component={Programacao} options={{ title: 'Programação' }}  />
-      <Drawer.Screen name="Feedback" component={Formulario} options={{ title: 'Feedback' }}  />
+      <Drawer.Screen name="Avalie o aplicativo" component={Formulario} options={{ title: 'Avalie o aplicativo' }}  />
 
     </Drawer.Navigator>
   )
@@ -77,7 +77,7 @@ function NewsDrawer() {
       <Drawer.Screen name="Streaming" component={Streaming} options={{ title: 'Regional Lives' }}  />
       <Drawer.Screen name="Contato" component={Contato} options={{ title: 'Contato' }} />
       <Drawer.Screen name="Programacao" component={Programacao} options={{ title: 'Programação' }}  />
-      <Drawer.Screen name="Feedback" component={Formulario} options={{ title: 'Feedback' }}  />
+      <Drawer.Screen name="Avalie o aplicativo" component={Formulario} options={{ title: 'Avalie o aplicativo' }}  />
 
     </Drawer.Navigator>
   )
@@ -98,7 +98,7 @@ function BackstageDrawer() {
       <Drawer.Screen name="Streaming" component={Streaming} options={{ title: 'Regional Lives' }}  />
       <Drawer.Screen name="Contato" component={Contato} options={{ title: 'Contato' }} />
       <Drawer.Screen name="Programacao" component={Programacao} options={{ title: 'Programação' }}  />
-      <Drawer.Screen name="Feedback" component={Formulario} options={{ title: 'Feedback' }}  />
+      <Drawer.Screen name="Avalie o aplicativo" component={Formulario} options={{ title: 'Avalie o aplicativo' }}  />
 
     </Drawer.Navigator>
   )
@@ -119,7 +119,7 @@ function AnuncieDrawer() {
       <Drawer.Screen name="Streaming" component={Streaming} options={{ title: 'Regional Lives' }}  />
       <Drawer.Screen name="Contato" component={Contato} options={{ title: 'Contato' }} />
       <Drawer.Screen name="Programacao" component={Programacao} options={{ title: 'Programação' }}  />
-      <Drawer.Screen name="Feedback" component={Formulario} options={{ title: 'Feedback' }}  />
+      <Drawer.Screen name="Avalie o aplicativo" component={Formulario} options={{ title: 'Avalie o aplicativo' }}  />
 
     </Drawer.Navigator>
   )
@@ -227,7 +227,7 @@ const screenOptions = ({ route }) => ({
       iconName = 'phone'
     } else if (route.name === 'Programacao') {
       iconName = 'calendar-check'
-    } else if (route.name === 'Feedback') {
+    } else if (route.name === 'Avalie o aplicativo') {
       iconName = 'message-alert'
     } else if (route.name === 'Podcasts') {
       iconName = 'microphone'
@@ -283,7 +283,7 @@ const options = ({ navigation }) => ({
   )
 })
 const feedbackOptions = ({ navigation }) => ({
-  title: 'Feedback',
+  title: 'Avalie o aplicativo',
   headerLeft: () => (
     <TouchableOpacity onPress={() => { navigation.goBack()}} >
       <Icon name="arrow-back" size={25} color="#FFF" />
