@@ -7,29 +7,31 @@
 
 // On this file bottom are the navigators settings up 
 
-import React from 'react'
-import { Image, TouchableOpacity, StatusBar, View, Platform } from 'react-native'
-import { Icon } from 'react-native-elements'
+import React from 'react';
+import { Audio } from "expo-av";
+import { TouchableOpacity } from 'react-native';
+import { Icon } from 'react-native-elements';
+
+import PlayerContext from './context';
+
+import {
+  AnuncieStack,
+  BackstageStack,
+  ContatoStack,
+  FormularioStack,
+  HomeStack,
+  MaisTocadasStack,
+  NewsStack,
+  PodcastsStack,
+  ProgramacaoStack,
+  StreamingStack,
+} from './Pages Routes/stack';
 
 // React Navigation
 
 import { NavigationContainer } from '@react-navigation/native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { createDrawerNavigator } from '@react-navigation/drawer'
-import { createStackNavigator } from '@react-navigation/stack'
-
-// Screens Imports
-
-import Inicial from './pages/Inicial'
-import News from './pages/News'
-import Backstage from './pages/Backstage'
-import Anuncie from './pages/Anuncie'
-
-import Contato from './pages/Drawer/Contato'
-import Programacao from './pages/Drawer/Programacao'
-import Podcasts from './pages/Drawer/Podcasts'
-import Streaming from './pages/Drawer/Streaming'
-import Formulario from './pages/Drawer/Formulario'
 
 import Player from './Components/Player'
 
@@ -37,138 +39,92 @@ import Player from './Components/Player'
 
 const Tab = createBottomTabNavigator()
 const Drawer = createDrawerNavigator()
-const Stack = createStackNavigator()
 
 // Drawers
 
-function HomeDrawer() {
+export default function Routes() {
   return(
-    <Drawer.Navigator
-      drawerStyle={ drawerStyle } 
-      drawerContentOptions={ drawerContentOptions }
-      drawerPosition={ drawerPosition }
-      drawerType={ drawerType }
-      screenOptions={screenOptions}
-      drawerPosition={drawerPosition}
-    >
-      <Drawer.Screen name="Home" component={Inicial} options={{ title: 'Página Inicial' }} />
-      <Drawer.Screen name="Podcasts" component={Podcasts} options={{ title: 'Podcasts' }}  />
-      <Drawer.Screen name="Streaming" component={Streaming} options={{ title: 'Regional Lives' }}  />
-      <Drawer.Screen name="Contato" component={Contato} options={{ title: 'Contato' }} />
-      <Drawer.Screen name="Programacao" component={Programacao} options={{ title: 'Programação' }}  />
-      <Drawer.Screen name="Avalie o aplicativo" component={Formulario} options={{ title: 'Avalie o aplicativo' }}  />
+    <NavigationContainer>
+      <Drawer.Navigator
+        drawerStyle={ drawerStyle } 
+        drawerContentOptions={ drawerContentOptions }
+        drawerPosition={ drawerPosition }
+        drawerType={ drawerType }
+        screenOptions={screenOptions}
+        drawerPosition={drawerPosition}
+      >
+        <Drawer.Screen name="Home" component={TabBar} options={{ title: 'Página Inicial' }} />
+        <Drawer.Screen name="MaisTocadas" component={MaisTocadasStack} options={{ title: 'Mais Tocadas' }}  />
+        <Drawer.Screen name="Podcasts" component={PodcastsStack} options={{ title: 'Podcasts' }}  />
+        <Drawer.Screen name="Streaming" component={StreamingStack} options={{ title: 'Regional Lives' }}  />
+        <Drawer.Screen name="Contato" component={ContatoStack} options={{ title: 'Contato' }} />
+        <Drawer.Screen name="Programacao" component={ProgramacaoStack} options={{ title: 'Programação' }}  />
+        <Drawer.Screen name="Avalie o aplicativo" component={FormularioStack} options={{ title: 'Avalie o aplicativo' }}  />
 
-    </Drawer.Navigator>
-  )
-}
-function NewsDrawer() {
-  return(
-    <Drawer.Navigator
-      drawerStyle={ drawerStyle } 
-      drawerContentOptions={ drawerContentOptions }
-      drawerPosition={ drawerPosition }
-      drawerType={ drawerType }
-      screenOptions={screenOptions}      
-      drawerPosition={drawerPosition}
-
-    >
-      <Drawer.Screen name="News" component={News} options={{ title: 'Acontecendo agora' }} />
-      <Drawer.Screen name="Podcasts" component={Podcasts} options={{ title: 'Podcasts' }}  />
-      <Drawer.Screen name="Streaming" component={Streaming} options={{ title: 'Regional Lives' }}  />
-      <Drawer.Screen name="Contato" component={Contato} options={{ title: 'Contato' }} />
-      <Drawer.Screen name="Programacao" component={Programacao} options={{ title: 'Programação' }}  />
-      <Drawer.Screen name="Avalie o aplicativo" component={Formulario} options={{ title: 'Avalie o aplicativo' }}  />
-
-    </Drawer.Navigator>
-  )
-}
-function BackstageDrawer() {
-  return(
-    <Drawer.Navigator
-      drawerStyle={ drawerStyle } 
-      drawerContentOptions={ drawerContentOptions }
-      drawerPosition={ drawerPosition }
-      drawerType={ drawerType }
-      screenOptions={screenOptions}
-      drawerPosition={drawerPosition}
-
-    >
-      <Drawer.Screen name="Backstage" component={Backstage} />
-      <Drawer.Screen name="Podcasts" component={Podcasts} options={{ title: 'Podcasts' }}  />
-      <Drawer.Screen name="Streaming" component={Streaming} options={{ title: 'Regional Lives' }}  />
-      <Drawer.Screen name="Contato" component={Contato} options={{ title: 'Contato' }} />
-      <Drawer.Screen name="Programacao" component={Programacao} options={{ title: 'Programação' }}  />
-      <Drawer.Screen name="Avalie o aplicativo" component={Formulario} options={{ title: 'Avalie o aplicativo' }}  />
-
-    </Drawer.Navigator>
-  )
-}
-function AnuncieDrawer() {
-  return(
-    <Drawer.Navigator
-      drawerStyle={ drawerStyle } 
-      drawerContentOptions={ drawerContentOptions }
-      drawerPosition={ drawerPosition }
-      drawerType={ drawerType }
-      screenOptions={screenOptions}
-      drawerPosition={drawerPosition}
-
-    >
-      <Drawer.Screen name="Anuncie" component={Anuncie} />
-      <Drawer.Screen name="Podcasts" component={Podcasts} options={{ title: 'Podcasts' }}  />
-      <Drawer.Screen name="Streaming" component={Streaming} options={{ title: 'Regional Lives' }}  />
-      <Drawer.Screen name="Contato" component={Contato} options={{ title: 'Contato' }} />
-      <Drawer.Screen name="Programacao" component={Programacao} options={{ title: 'Programação' }}  />
-      <Drawer.Screen name="Avalie o aplicativo" component={Formulario} options={{ title: 'Avalie o aplicativo' }}  />
-
-    </Drawer.Navigator>
-  )
-}
-
-// Stacks
-
-function HomeStack() {
-  return(
-    <Stack.Navigator >
-      <Stack.Screen  name="Home" component={HomeDrawer} options={options} />
-    </Stack.Navigator>
-  )
-}
-function NewsStack() {
-  return(
-    <Stack.Navigator>
-      <Stack.Screen name="O que está acontecendo" component={NewsDrawer} options={options} />
-    </Stack.Navigator>
-  )
-}
-function BackstageStack() {
-  return(
-    <Stack.Navigator>
-      <Stack.Screen name="Backstage" component={BackstageDrawer} options={options} />
-    </Stack.Navigator>
-  )
-}
-function AnuncieStack() {
-  return(
-    <Stack.Navigator>
-      <Stack.Screen name="Streaming" component={AnuncieDrawer} options={options} />
-    </Stack.Navigator>
+      </Drawer.Navigator>
+    </NavigationContainer>
   )
 }
 
 // Main Function
 
-export default function Routes() {
+function TabBar() {
+  const { playerStatus, setPlayerStatus } = React.useContext(PlayerContext);
+  // http://11.fm5.com.br:8104/stream
+  const radio = React.useMemo(async () => {
+    const audio = new Audio.Sound();
+    await audio.loadAsync({ uri: 'http://11.fm5.com.br:8104/stream' });
+    return audio;
+  }, []);
+
+  React.useEffect(() => {
+    async function radioPlayer() {
+      if (playerStatus === true) {
+        (await radio).replayAsync();
+      } else {
+        (await radio).pauseAsync();
+      }
+    }
+
+    if (radio) {
+      radioPlayer();
+    }
+  }, [playerStatus]);
+
+
   return(
-    <NavigationContainer>
-      <Tab.Navigator screenOptions={tabScreenOptions} tabBarOptions={tabBarOptions} >
-        <Tab.Screen name="Home" component={HomeStack} options={{ unmountOnBlur: true }}/>
-        <Tab.Screen name="News" component={NewsStack} options={{ unmountOnBlur: true }} />
-        <Tab.Screen name="Player" component={Player} options={{ title: ''}} />
-        <Tab.Screen name="Backstage" component={BackstageStack} options={{ unmountOnBlur: true }} />
-        <Tab.Screen name="Anuncie" component={AnuncieStack} options={{ unmountOnBlur: true }} />
-      </Tab.Navigator>
-    </NavigationContainer>
+    <Tab.Navigator screenOptions={tabScreenOptions} tabBarOptions={tabBarOptions} >
+      <Tab.Screen name="Home" component={HomeStack} options={{ unmountOnBlur: true }}/>
+      <Tab.Screen name="News" component={NewsStack} options={{ unmountOnBlur: true }} />
+      <Tab.Screen
+        name="Player"
+        component={Player}
+        options={{
+          title: '',
+          tabBarIcon: () => (
+            <TouchableOpacity style={{ justifyContent: 'center', flex: 1 }} onPress={() => setPlayerStatus(!playerStatus)}>
+              <Icon
+                name={ playerStatus ? "pause" : "play"}
+                containerStyle={{
+                  alignItems: 'center',
+                  backgroundColor: '#F24401',
+                  borderRadius: 100,
+                  height: 60,
+                  justifyContent: 'center',
+                  marginBottom: 10,
+                  width: 60,
+                }}
+                size={40}
+                type="material-community"
+                color="#fff"
+              />
+            </TouchableOpacity>
+          ),
+        }}
+      />
+      <Tab.Screen name="Backstage" component={BackstageStack} options={{ unmountOnBlur: true }} />
+      <Tab.Screen name="Anuncie" component={AnuncieStack} options={{ unmountOnBlur: true }} />
+    </Tab.Navigator>
   )
 }
 
@@ -188,19 +144,19 @@ const tabScreenOptions = ({ route }) => ({
       iconName = 'image-multiple'
     } else if (route.name === 'Anuncie') {
       iconName = 'bullhorn'
-    }
+    } 
 
     return <Icon type="material-community" name={iconName} size={size} color={color} />;
   },
 }) 
 const tabBarOptions = {
-  activeTintColor: 'tomato',
+  activeTintColor: '#F24401',
   inactiveTintColor: '#ddd',
   showLabel: false,
   style: {
-    backgroundColor: '#111',
-    borderWidth: 1,
-    borderColor: 'black'
+    backgroundColor: '#050505',
+    overflow: 'visible',
+    height: 50,
   },
   keyboardHidesTabBar: true,
 }
@@ -211,7 +167,7 @@ const drawerStyle = {
   backgroundColor: '#151515'
 }
 const drawerContentOptions = {
-  activeTintColor: 'tomato',
+  activeTintColor: '#F24401',
   inactiveTintColor: '#ddd'
 }
 const drawerPosition = 'right'
@@ -228,77 +184,23 @@ const screenOptions = ({ route }) => ({
     } else if (route.name === 'Programacao') {
       iconName = 'calendar-check'
     } else if (route.name === 'Avalie o aplicativo') {
-      iconName = 'message-alert'
+      iconName = 'star'
     } else if (route.name === 'Podcasts') {
-      iconName = 'microphone'
+      iconName = 'podcast'
     } else if (route.name === 'Streaming') {
-      iconName = 'television'
+      iconName = 'video-wireless'
     } else if (route.name === 'Home') {
-      iconName = 'home'
+      iconName = 'backburger'
     } else if (route.name === 'News') {
       iconName = 'calendar'
     } else if (route.name === 'Backstage') {
       iconName = 'image-multiple'
     } else if (route.name === 'Anuncie') {
       iconName = 'bullhorn'
+    } else if (route.name === 'MaisTocadas') {
+      iconName = 'music-note-eighth'
     }
     
     return <Icon type="material-community" name={iconName} size={size} color={color} />
-  }
-})
-
-// Stack Default Configurations
-
-import { DrawerActions } from '@react-navigation/native';
-
-const options = ({ navigation }) => ({
-  title: 'Regional FM', 
-  headerRight: () => {
-
-    return (
-    <TouchableOpacity onPress={() => { navigation.dispatch(DrawerActions.toggleDrawer()); }}>
-      <Icon name="menu" size={25} color="#FFF" />
-    </TouchableOpacity>
-  )},
-  
-  headerRightContainerStyle: {
-    marginRight: 10,
-  },
-  headerLeftContainerStyle: {
-    marginLeft: 10,
-  },
-  headerTitle: '',
-  headerStyle: {
-    elevation: 0
-  },
-  headerBackground: () => (
-    <View
-      style={{ flex: 1, paddingTop: 5, backgroundColor: '#111' ,justifyContent: 'center', alignItems: 'center', }}
-    >
-      <Image
-        style={{ resizeMode: 'contain', width: 90, marginTop: StatusBar.currentHeight }}
-        source={require('../assets/images/logo-regional-fm.png')}
-      />
-    </View>
-  )
-})
-const feedbackOptions = ({ navigation }) => ({
-  title: 'Avalie o aplicativo',
-  headerLeft: () => (
-    <TouchableOpacity onPress={() => { navigation.goBack()}} >
-      <Icon name="arrow-back" size={25} color="#FFF" />
-    </TouchableOpacity>
-  ),
-  headerLeftContainerStyle: {
-    marginLeft: 10,
-  },
-  headerTitleAlign: 'center',
-  headerTitleStyle: {
-    color: 'tomato',
-    fontWeight: 'bold'
-  },
-  headerStyle: {
-    backgroundColor: '#222',
-    elevation: 0
   }
 })

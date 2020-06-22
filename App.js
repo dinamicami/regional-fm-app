@@ -1,26 +1,22 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import * as ScreenOrientation from 'expo-screen-orientation';
 
-// Here's where is the most part of the application 
+import { PlayerContextProvider } from './src/context';
 import Routes from './src/routes'
 
-// Player button on the bottom tab 
-import Player from './src/Components/Player'
-
 export default function App () {
+  async function LockScreen() {
+    await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP)
+  }
 
-  // Allowing all the orientations modes
-  useEffect(() => {
-    async function changeScreenOrientation() {
-      await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.ALL)
-    }
-    changeScreenOrientation()
+  React.useEffect(() => {
+    LockScreen();
   }, []);
 
-    return(
-      <>
-        <Routes/>
-        <Player/>
-      </>
-    )
+
+  return (
+    <PlayerContextProvider>
+      <Routes/>
+    </PlayerContextProvider>
+  );
 }

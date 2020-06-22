@@ -1,4 +1,5 @@
 import React from 'react';
+import { Icon } from 'react-native-elements';
 import { Dimensions } from "react-native";
 import styled from 'styled-components';
 
@@ -6,6 +7,18 @@ export const Container = styled.ScrollView`
   flex: 1;
   background-color: #111;
   padding-top: 15px;
+`;
+
+export const SpacedView = styled.View`
+  height: 30px;
+`;
+
+export const Title = styled.Text`
+  color: #F24401;
+  font-size: 22px;
+  font-weight: bold;
+  margin-top: 10px;
+  padding: 0px 20px 10px;
 `;
 
 export const Banner = styled.Image`
@@ -16,13 +29,6 @@ export const Banner = styled.Image`
   margin: 0px 15px 15px;
 `;
 
-export const Title = styled.Text`
-  color: #F24401;
-  font-size: 20px;
-  font-weight: bold;
-  margin-top: 10px;
-  padding: 0px 20px 10px;
-`;
 
 export const BannerScrollView = styled.ScrollView.attrs({
   horizontal: true,
@@ -43,8 +49,8 @@ export const ProgramsContainer = styled.View`
 `;
 
 export const ProgramItem = styled.Image`
-  width: 150px;
-  height: 150px;
+  width: 250px;
+  height: 250px;
   background: rgba(255, 255, 255, 0.2);
   border-radius: 10px;
   padding: 10px;
@@ -63,20 +69,20 @@ export const ProgramItemDescription = styled.Text`
 
 export const Advertise = ({ title, subtitle, onPress }) => (
   <Touch onPress={onPress}>
-    <ButtonContainer>
-      <ButtonText pos="first" color="#F24401" fontSize={40}>
+    <AdvertiseContainer>
+      <AdvertiseText pos="first" color="#F24401" fontSize={40}>
         { title }
-      </ButtonText>
-      <ButtonText pos="second" color="#FFFFFF" fontSize={18}>
+      </AdvertiseText>
+      <AdvertiseText pos="second" color="#FFFFFF" fontSize={18}>
         { subtitle }
-      </ButtonText>
-    </ButtonContainer>
+      </AdvertiseText>
+    </AdvertiseContainer>
   </Touch>
 )
 
 const Touch = styled.TouchableOpacity``;
 
-const ButtonContainer = styled.View`
+const AdvertiseContainer = styled.View`
   align-items: center;
   border-color: #fff;
   border-width: 1px;
@@ -85,11 +91,46 @@ const ButtonContainer = styled.View`
   margin: 40px 15px; 0px
 `;
 
-const ButtonText = styled.Text`
+const AdvertiseText = styled.Text`
   background-color: #111;
   padding: ${props => props.pos === 'first' ? '20px 50px 0px' : '0px 80px 20px' };
   color: ${props => props.color};
   font-size: ${props => props.fontSize}px;
   font-weight: bold;
   text-transform: uppercase;
+`;
+
+export const Button = ({ icon, index, title, onPress }) => (
+  <ButtonContainer onPress={onPress}>
+    <Icon name={icon} type="material-community" color="#fff" size={30} />    
+    <Agroup>
+      <ButtonText size={24} color="#F24401" >
+        { title }
+      </ButtonText>
+      <ButtonText size={18} color="#FFFFFF" >
+        { index }
+      </ButtonText>
+    </Agroup>
+  </ButtonContainer>
+);
+const Agroup = styled.View`
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+`;
+
+const ButtonContainer = styled.TouchableOpacity`
+  align-items: center;
+  background-color: #111;
+  border-radius: 10px;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 0px 15px 5px;
+  padding: 10px 30px;
+`;
+
+const ButtonText = styled.Text`
+  color: ${props => props.color};
+  font-size: ${props => props.size}px;
+  font-weight: bold;
 `;

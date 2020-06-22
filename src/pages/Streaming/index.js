@@ -1,12 +1,21 @@
 import React, { useEffect, useState } from 'react';
+import * as ScreenOrientation from 'expo-screen-orientation';
 import { StyleSheet, ScrollView, View, Text, Dimensions, ActivityIndicator, useWindowDimensions, FlatList, SafeAreaView } from 'react-native'
-import { WebView } from 'react-native-webview'
-import axios from 'axios'
+import { WebView } from 'react-native-webview';
+import axios from 'axios';
 
 export default function App () {
-  const [ livesURL, setLivesURL ] = useState([])
-  const [ lastLivesURL, setLastLivesURL ] = useState({})
-  const [ isLoading, setIsLoading ] = useState(true)
+  async function LockScreen() {
+    await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP)
+  }
+
+  React.useEffect(() => {
+    LockScreen();
+  }, []);
+
+  const [ livesURL, setLivesURL ] = useState([]);
+  const [ lastLivesURL, setLastLivesURL ] = useState({});
+  const [ isLoading, setIsLoading ] = useState(true);
 
   useEffect(() => {
 

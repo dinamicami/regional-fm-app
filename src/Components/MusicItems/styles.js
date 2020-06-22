@@ -8,7 +8,7 @@ export const Row = styled.View`
   flex-wrap: wrap;
 `;
 
-export const MusicItem = ({ id, source, actualPlaying, setActualPlayer, image }) => {
+export const MusicItem = ({ id, source, actualPlaying, setActualPlayer, image, description }) => {
   const [isPlaying, setIsPlaying] = React.useState(false);
   const sound = React.useMemo(async () => {
     const soundObject = new Audio.Sound();
@@ -56,19 +56,32 @@ export const MusicItem = ({ id, source, actualPlaying, setActualPlayer, image })
   return (
     <MusicContainer onPress={() => player()}>
       <MusicBackground source={image} />
+      <Description>
+        { description }
+      </Description>
     </MusicContainer>
   )
 }
 
 const MusicContainer = styled.TouchableOpacity`
   elevation: 5;
-  height: 100px;
-  margin-bottom: 10px;
+  margin: 5px;
   width: 100px;
 `;
 
 const MusicBackground = styled.Image`
   border-radius: 8px;
-  flex: 1;
+  height: 100px;
   overflow: hidden;
+`;
+
+export const Description = styled.Text`
+  color: #fff;
+  text-align: center;
+`;
+
+export const CenteredContainer = styled.View`
+  align-items: center;
+  flex: 1;
+  justify-content: center;
 `;
