@@ -20,17 +20,14 @@ const Stack = createStackNavigator();
 
 const options = ({ navigation }) => ({
   title: 'Regional FM', 
-  headerRight: () => {
+  headerLeft: () => {
 
     return (
     <TouchableOpacity onPress={() => { navigation.dispatch(DrawerActions.toggleDrawer()); }}>
-      <Icon name="menu" size={25} color="#FFF" />
+      <Icon name="menu" size={30} color="#FFF" />
     </TouchableOpacity>
   )},
   
-  headerRightContainerStyle: {
-    marginRight: 10,
-  },
   headerLeftContainerStyle: {
     marginLeft: 10,
   },

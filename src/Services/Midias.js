@@ -1,12 +1,12 @@
 const GRAPHQL_ENDPOINT = 'https://regional-fm-api.herokuapp.com/api/mm-midias';
 
-export const midiasApi = async ( id, pagina, page, pageSize, status, tipo ) => {
-    const ID =      `pai: ${ id ? id : '' },`,
-        PAGINA =    `pagina: "${ pagina ? pagina : "" }",`,
-        PAGE =      `page: ${ page ? page : '' },`,
-        PAGESIZE =  `pageSize: ${ pageSize ? pageSize : '' },`,
-        STATUS =    `status: ${ status ? status : '' },`,
-        TIPO =      `tipo: ${ tipo ? tipo : '' }`,
+export const midiasApi = async ( id = null, pagina = null, page = null, pageSize = null, status = null, tipo = null ) => {
+    const ID =      `pai: ${ id !== null ? id : '' },`,
+        PAGINA =    `pagina: "${ pagina !== null ? pagina : "" }",`,
+        PAGE =      `page: ${ page !== null ? page : '' },`,
+        PAGESIZE =  `pageSize: ${ pageSize !== null ? pageSize : '' },`,
+        STATUS =    `status: ${ status === null ? '' : status ? 1 : 0 },`,
+        TIPO =      `tipo: ${ tipo !== null ? tipo : '' }`,
         midiasAll = `
             {
                 getMmMidiasAll(
@@ -17,7 +17,8 @@ export const midiasApi = async ( id, pagina, page, pageSize, status, tipo ) => {
                     ${ status ? STATUS : '' }
                     ${ tipo ? TIPO : '' }
                 ){
-                    endereco
+                    endereco,
+                    status
                 }
             }
         `;

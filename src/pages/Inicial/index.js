@@ -1,90 +1,121 @@
 import React from 'react';
+import moment from 'moment';
+import { tz } from "moment-timezone";
 import * as ScreenOrientation from 'expo-screen-orientation';
-import { Linking } from "react-native";
+import { Linking, Dimensions } from "react-native";
 
-import { Button, Container, Advertise, Banner, BannerScrollView, Title, ProgramsContainer, ProgramsContainerScrollView, ProgramItem, SpacedView, ProgramItemDescription } from './styles';
+import { Button, Spinner, LoadingBanner, Container, Advertise, Banner, BannerScrollView, Title, SpacedView } from './styles';
+import RadioPlayer from '../../Components/RadioPlayer';
 
 import { programacaoApi } from '../../Services/Programacao';
+import { midiasApi } from '../../Services/Midias';
 
 export default function Home({ navigation }) {
-  const [isLoading, setIsLoading] = React.useState(true);
-  const [programs, setPrograms] = React.useState([]);
-  async function LockScreen() {
-    await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP)
+  const [banners, setBanners] = React.useState([]);
+  const [program, setProgram] = React.useState({});
+  const bannerScrollView = React.useRef(null);
+
+  // Actual Program Filter
+  function verifyActuallyProgram(data) {
+    const today = moment().tz('America/Sao_Paulo').format('d');
+    const todayPrograms = data.map(item => {
+      if (item !== undefined && item !== null) {
+        const { dias } = item;
+  
+        if (dias !== undefined && dias !== null) {
+          if (dias.includes(today)) {
+            return ({ name: item.programa, image: item.image, startingAt: item.inicio });
+          }
+        }
+      }
+    });
+  
+    const programsSinceNow = todayPrograms.map(item => {
+      if (item !== undefined) {
+        const horary = item.startingAt.substring(0,2);
+        const now = moment().tz('America/Sao_Paulo').format('HH');
+  
+        if (parseInt(horary) <= parseInt(now)) {
+          return item;
+        }
+      } 
+    });
+  
+    const orderedPrograms = programsSinceNow.sort(function (a, b) {
+      if (a !== undefined && b !== undefined) {
+        return (a.startingAt < b.startingAt) ? 1 : (( b.startingAt < a.startingAt) ? -1 : 0);
+      }
+    });
+  
+    return orderedPrograms[0];
   }
 
   React.useEffect(() => {
-    async function getFromAPI() {
-      const response = await programacaoApi();
-      Promise.all(response).then((data) => {
-        setPrograms(data);
-        setIsLoading(false);
-      })
+    // Get Banners and Actual Program
+    async function getInitialData() {
+      const banners = await midiasApi(null, 'banners', null, null, true, null);
+      Promise.all(banners).then((data) => {
+        if (data !== undefined) {
+          setBanners(data);
+        }
+      });
+
+      const programs = await programacaoApi();
+      Promise.all(programs).then((data) => {
+        if (data !== undefined) {
+          const actualProgram = verifyActuallyProgram(data);
+          setProgram(actualProgram);
+        }
+      });
     }
-    LockScreen();
-    getFromAPI();
+    getInitialData();
   }, []);
 
 
-  const bannerScrollView = React.useRef(null);
-
-  // Banner Scroll Animation
   React.useEffect(() => {
-    if(bannerScrollView !== null) {
-      setTimeout(() => {
-        bannerScrollView.current.scrollTo({ x: 30, y: 0, animated: true });
-        setTimeout(() => {
-          bannerScrollView.current.scrollTo({ x: 0, y: 0, animated: true });        
-        }, 300);        
-      }, 200);
-    }
-  }, [bannerScrollView]);
+    const unsubscribe = navigation.addListener('focus', async () => {
+      // Lock portrait orientation
+      await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP);
+
+      // Get actual program
+      const response = await programacaoApi();
+      Promise.all(response).then((data) => {
+        if (data !== undefined) {
+          const actualProgram = verifyActuallyProgram(data);
+          setProgram(actualProgram);
+        }
+      });
+    })
+
+    return unsubscribe;
+  }, [navigation]);
 
   return (
     <Container>
-      <BannerScrollView ref={bannerScrollView}>
-        <Banner source={{ uri: 'http://radioregionalfm.com.br/midias/banners/Imagens/sem_titulo-1.png' }} />
-        <Banner source={{ uri: 'http://radioregionalfm.com.br/midias/banners/Imagens/banner_podcasts3.jpg' }} />
-        <Banner source={{ uri: 'http://radioregionalfm.com.br/midias/banners/Imagens/banner_site_beto_carreiro4.jpg' }} />
-      </BannerScrollView>
-      <Title>
-        Acontecendo Na Regional
-      </Title>
-
-      <ProgramsContainerScrollView>
+      <BannerScrollView
+        ref={bannerScrollView}
+      >
         {
-          isLoading === true || programs[0].image === undefined ? (
-            <ProgramsContainer>
-              <ProgramItem source={{ uri: 'https://cdn.dribbble.com/users/1417337/screenshots/5750630/bubble-loader.gif' }} />
-              <ProgramItemDescription>Carregando</ProgramItemDescription>
-            </ProgramsContainer>
-          ) : (
+          banners[0] ? (
             <>
               {
-                programs.map((item, index) => {
-                  
-                  return (
-                  <ProgramsContainer key={index}>
-                    <ProgramItem source={{ uri: `http://radioregionalfm.com.br/${item.image}` }} />
-                    {
-                      index === 1 ? (
-                        <ProgramItemDescription>AO VIVO</ProgramItemDescription>
-                      ) : <></>
-                    }
-                  </ProgramsContainer>
-                )})
+                banners.map((item, index) => (
+                  <Banner key={index} source={{ uri: `http://radioregionalfm.com.br/${item.endereco}` }} />
+                ))
               }
             </>
+          ) : (
+            <LoadingBanner><Spinner /></LoadingBanner>
           )
         }
-        
+      </BannerScrollView>
+      <Title>
+        Agora na Regional
+      </Title>
 
-        
-      </ProgramsContainerScrollView>
-
+      <RadioPlayer item={program} navigation={navigation} />
       <Advertise title="Anuncie" subtitle="na regional" onPress={() => navigation.navigate('Anuncie') } />
-
-
+      <SpacedView />
       <Title>
         Contato
       </Title>

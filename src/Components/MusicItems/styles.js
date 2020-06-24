@@ -1,6 +1,8 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { Audio } from 'expo-av';
+
+import PlayerContext from '../../context';
 
 export const Row = styled.View`
   flex-direction: row;
@@ -9,12 +11,17 @@ export const Row = styled.View`
 `;
 
 export const MusicItem = ({ id, source, actualPlaying, setActualPlayer, image, description }) => {
+  const { playerStatus, setPlayerStatus } = React.useContext(PlayerContext);
   const [isPlaying, setIsPlaying] = React.useState(false);
   const sound = React.useMemo(async () => {
     const soundObject = new Audio.Sound();
     await soundObject.loadAsync(source);
     return soundObject
   }, []);
+
+  React.useEffect(() => {
+    setActualPlayer(null);
+  }, [playerStatus])
 
   React.useEffect(() => {
     async function forceStop() {
@@ -44,6 +51,7 @@ export const MusicItem = ({ id, source, actualPlaying, setActualPlayer, image, d
     } else {
       try {
         await (await sound).replayAsync();
+        setPlayerStatus(false);
         setIsPlaying(true);
         setActualPlayer(id);
       } catch (err) {

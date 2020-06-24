@@ -9,7 +9,7 @@
 
 import React from 'react';
 import { Audio } from "expo-av";
-import { TouchableOpacity } from 'react-native';
+import { TouchableOpacity, SafeAreaView } from 'react-native';
 import { Icon } from 'react-native-elements';
 
 import PlayerContext from './context';
@@ -54,7 +54,7 @@ export default function Routes() {
         drawerPosition={drawerPosition}
       >
         <Drawer.Screen name="Home" component={TabBar} options={{ title: 'Página Inicial' }} />
-        <Drawer.Screen name="MaisTocadas" component={MaisTocadasStack} options={{ title: 'Mais Tocadas' }}  />
+        <Drawer.Screen name="MaisTocadas" component={MaisTocadasStack} options={{ title: 'Mais Pedidas' }}  />
         <Drawer.Screen name="Podcasts" component={PodcastsStack} options={{ title: 'Podcasts' }}  />
         <Drawer.Screen name="Streaming" component={StreamingStack} options={{ title: 'Regional Lives' }}  />
         <Drawer.Screen name="Contato" component={ContatoStack} options={{ title: 'Contato' }} />
@@ -94,7 +94,7 @@ function TabBar() {
 
   return(
     <Tab.Navigator screenOptions={tabScreenOptions} tabBarOptions={tabBarOptions} >
-      <Tab.Screen name="Home" component={HomeStack} options={{ unmountOnBlur: true }}/>
+      <Tab.Screen name="Home" component={HomeStack} />
       <Tab.Screen name="News" component={NewsStack} options={{ unmountOnBlur: true }} />
       <Tab.Screen
         name="Player"
@@ -102,23 +102,25 @@ function TabBar() {
         options={{
           title: '',
           tabBarIcon: () => (
-            <TouchableOpacity style={{ justifyContent: 'center', flex: 1 }} onPress={() => setPlayerStatus(!playerStatus)}>
-              <Icon
-                name={ playerStatus ? "pause" : "play"}
-                containerStyle={{
-                  alignItems: 'center',
-                  backgroundColor: '#F24401',
-                  borderRadius: 100,
-                  height: 60,
-                  justifyContent: 'center',
-                  marginBottom: 10,
-                  width: 60,
-                }}
-                size={40}
-                type="material-community"
-                color="#fff"
-              />
-            </TouchableOpacity>
+            <SafeAreaView>
+              <TouchableOpacity style={{ justifyContent: 'center', flex: 1 }} onPress={() => setPlayerStatus(!playerStatus)}>
+                <Icon
+                  name={ playerStatus ? "pause" : "play"}
+                  containerStyle={{
+                    alignItems: 'center',
+                    backgroundColor: '#F24401',
+                    borderRadius: 100,
+                    height: 60,
+                    justifyContent: 'center',
+                    marginBottom: 10,
+                    width: 60,
+                  }}
+                  size={40}
+                  type="material-community"
+                  color="#fff"
+                />
+              </TouchableOpacity>
+            </SafeAreaView>
           ),
         }}
       />
@@ -170,7 +172,7 @@ const drawerContentOptions = {
   activeTintColor: '#F24401',
   inactiveTintColor: '#ddd'
 }
-const drawerPosition = 'right'
+const drawerPosition = 'left'
 const drawerType = 'back'
 
 const screenOptions = ({ route }) => ({

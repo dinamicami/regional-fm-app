@@ -26,10 +26,9 @@ export const maisPedidasApi = async () => {
   let response = await fetch(`${GRAPHQL_ENDPOINT}/mais-pedidas/?query=${maisPedidaAll}`);
   response = await response.json();
 
-  let newArray = [];
-  await response.data.getMaisPedidaAll.map(async item => {
+  let newArray = await response.data.getMaisPedidaAll.map(async item => {
     const midias = await midiasApi(item.id, 'mais_pedidas');
-    newArray.push({ ...item, audioPath: midias[1].endereco, imagePath: midias[0].endereco });
+    return ({ ...item, audioPath: midias[1].endereco, imagePath: midias[0].endereco });
   })
 
   return newArray;

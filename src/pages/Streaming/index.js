@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import * as ScreenOrientation from 'expo-screen-orientation';
-import { StyleSheet, ScrollView, View, Text, Dimensions, ActivityIndicator, useWindowDimensions, FlatList, SafeAreaView } from 'react-native'
+import { StyleSheet, ScrollView, View, Text, Dimensions, ActivityIndicator, FlatList, SafeAreaView } from 'react-native'
 import { WebView } from 'react-native-webview';
 import axios from 'axios';
+
+import { FloatingButton } from '../../Components/FloatingPlayer/styles';
 
 export default function App () {
   async function LockScreen() {
@@ -59,6 +61,7 @@ export default function App () {
 
   return(
     <>
+    <FloatingButton />
     {
       !isLoading ? (
         <ScrollView style={styles.container}>

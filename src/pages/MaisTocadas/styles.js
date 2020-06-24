@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Container = styled.View`
+export const Container = styled.ScrollView`
   background-color: #111;
   flex: 1;
   padding: 15px;
@@ -23,4 +23,8 @@ export const Title = styled.Text`
   font-weight: bold;
   margin-bottom: 10px;
   text-align: center;
+`;
+
+export const SpacedView = styled.View`
+  height: 90px;
 `;

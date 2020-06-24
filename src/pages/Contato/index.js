@@ -1,6 +1,7 @@
 import React from 'react'
 import * as ScreenOrientation from 'expo-screen-orientation';
-import { WebView } from 'react-native-webview'
+import { WebView } from 'react-native-webview';
+import { FloatingButton } from '../../Components/FloatingPlayer/styles';
 
 export default function Contato() {
   async function LockScreen() {
@@ -13,6 +14,7 @@ export default function Contato() {
 
   return(
     <>
+      <FloatingButton />
       <WebView
         style={{ backgroundColor: '#111' }}
         source={{uri: 'http://www.radioregionalfm.com.br/contatoApp/app=true'}}

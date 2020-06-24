@@ -23,13 +23,15 @@ const programacao = `
     }
   }
 `;
-export const programacaoApi = async () => {
+
+export async function programacaoApi() {
   async function getFromAPI() {
     let response = await fetch(`${GRAPHQL_ENDPOINT}/programacao/?query=${programacao}`);
     response = await response.json();
+
     let newArray = await response.data.getProgramacaoAll.map(async (item) => {
       const midias = await midiasApi(parseInt(item.id), 'programacao');
-      return ({ image: (await midias)[0].endereco });
+      return ({ ...item, image: (await midias)[0].endereco });
     })
 
     return newArray;
