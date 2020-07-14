@@ -15,6 +15,24 @@ export default function Home({ navigation }) {
   const [program, setProgram] = React.useState({});
   const bannerScrollView = React.useRef(null);
 
+  function shuffle(array) {
+    var currentIndex = array.length, temporaryValue, randomIndex;
+  
+    // While there remain elements to shuffle...
+    while (0 !== currentIndex) {
+  
+      // Pick a remaining element...
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+  
+      // And swap it with the current element.
+      temporaryValue = array[currentIndex];
+      array[currentIndex] = array[randomIndex];
+      array[randomIndex] = temporaryValue;
+    }
+  
+    return array;
+  }
   // Actual Program Filter
   function verifyActuallyProgram(data) {
     const today = moment().tz('America/Sao_Paulo').format('d');
@@ -53,18 +71,19 @@ export default function Home({ navigation }) {
   React.useEffect(() => {
     // Get Banners and Actual Program
     async function getInitialData() {
-      const banners = await midiasApi(null, 'banners', null, null, true, null);
-      Promise.all(banners).then((data) => {
-        if (data !== undefined) {
-          setBanners(data);
-        }
-      });
-
       const programs = await programacaoApi();
       Promise.all(programs).then((data) => {
         if (data !== undefined) {
           const actualProgram = verifyActuallyProgram(data);
           setProgram(actualProgram);
+        }
+      });
+      
+      const banners = await midiasApi(null, 'banners', null, null, true, null);
+      Promise.all(banners).then((data) => {
+        if (data !== undefined) {
+          shuffle(data)
+          setBanners(data);
         }
       });
     }
@@ -76,13 +95,21 @@ export default function Home({ navigation }) {
     const unsubscribe = navigation.addListener('focus', async () => {
       // Lock portrait orientation
       await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP);
-
+      
       // Get actual program
       const response = await programacaoApi();
       Promise.all(response).then((data) => {
         if (data !== undefined) {
           const actualProgram = verifyActuallyProgram(data);
           setProgram(actualProgram);
+        }
+      });
+
+      const banners = await midiasApi(null, 'banners', null, null, true, null);
+      Promise.all(banners).then((data) => {
+        if (data !== undefined) {
+          shuffle(data)
+          setBanners(data);
         }
       });
     })

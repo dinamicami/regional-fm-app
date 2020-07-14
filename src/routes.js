@@ -9,7 +9,7 @@
 
 import React from 'react';
 import { Audio } from "expo-av";
-import { TouchableOpacity, SafeAreaView } from 'react-native';
+import { TouchableOpacity, SafeAreaView, Platform } from 'react-native';
 import { Icon } from 'react-native-elements';
 
 import PlayerContext from './context';
@@ -25,6 +25,7 @@ import {
   PodcastsStack,
   ProgramacaoStack,
   StreamingStack,
+  DesenvolvedorStack,
 } from './Pages Routes/stack';
 
 // React Navigation
@@ -60,7 +61,7 @@ export default function Routes() {
         <Drawer.Screen name="Contato" component={ContatoStack} options={{ title: 'Contato' }} />
         <Drawer.Screen name="Programacao" component={ProgramacaoStack} options={{ title: 'Programação' }}  />
         <Drawer.Screen name="Avalie o aplicativo" component={FormularioStack} options={{ title: 'Avalie o aplicativo' }}  />
-
+        <Drawer.Screen name="Desenvolvedor" component={DesenvolvedorStack} options={{ title: 'Desenvolvedor' }} />
       </Drawer.Navigator>
     </NavigationContainer>
   )
@@ -73,16 +74,29 @@ function TabBar() {
   // http://11.fm5.com.br:8104/stream
   const radio = React.useMemo(async () => {
     const audio = new Audio.Sound();
+
+    await Audio.setAudioModeAsync({
+      allowsRecordingIOS: true,
+      playsInSilentModeIOS: true,
+      interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX,
+      staysActiveInBackground: true,
+      interruptionModeAndroid: Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX,
+      shouldDuckAndroid: true,
+      playThroughEarpieceAndroid: false,
+    });
+
+    
     await audio.loadAsync({ uri: 'http://11.fm5.com.br:8104/stream' });
+    
     return audio;
   }, []);
 
   React.useEffect(() => {
     async function radioPlayer() {
       if (playerStatus === true) {
-        (await radio).replayAsync();
+        await (await radio).replayAsync();
       } else {
-        (await radio).pauseAsync();
+        await (await radio).pauseAsync();
       }
     }
 
@@ -201,6 +215,8 @@ const screenOptions = ({ route }) => ({
       iconName = 'bullhorn'
     } else if (route.name === 'MaisTocadas') {
       iconName = 'music-note-eighth'
+    } else if (route.name === 'Desenvolvedor') {
+      iconName = 'laptop';
     }
     
     return <Icon type="material-community" name={iconName} size={size} color={color} />

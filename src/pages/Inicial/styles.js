@@ -15,7 +15,7 @@ export const SpacedView = styled.View`
 
 export const Title = styled.Text`
   color: #F24401;
-  font-size: 22px;
+  font-size: 26px;
   font-weight: bold;
   margin-top: 10px;
   padding: 0px 20px 10px;

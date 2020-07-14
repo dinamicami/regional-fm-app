@@ -88,11 +88,13 @@ const Title = styled.Text`
   ${ Dimensions.get('screen').width > 450 ? 'font-size: 26px;'  : 'font-size: 18px;' }
   font-weight: bold;
 `;
-const Badge = styled.Text`
+const Badge = styled.Text.attrs({
+  numberOfLines: 1
+})`
   background-color: #F24401;
   border-radius: 10px;
   color: #fff;
   flex: 0 1 auto;
-  ${ Dimensions.get('screen').width > 450 ? 'font-size: 18px;'  : 'font-size: 12px;' }
+  ${ Dimensions.get('screen').width > 450 ? 'font-size: 18px;'  : 'font-size: 14px;' }
   padding: 0px 5px;
 `;
