@@ -6,19 +6,37 @@ import styled from 'styled-components';
 export const Container = styled.ScrollView`
   flex: 1;
   background-color: #111;
-  padding-top: 15px;
+  padding: 40px 0px;
 `;
 
 export const SpacedView = styled.View`
-  height: 30px;
+  height: 20px;
 `;
 
 export const Title = styled.Text`
   color: #F24401;
-  font-size: 26px;
-  font-weight: bold;
-  margin-top: 10px;
+  font-size: 22px;
+  font-weight: ${props => props.thin ? 'normal' : 'bold'};
+  margin-top: 20px;
   padding: 0px 20px 10px;
+  text-align: center;
+`;
+
+export const MaisPedidas = styled.Image`
+  border-radius: 10px;
+  height: 170px;
+  width: 170px;
+  margin-left: 15px;
+`;
+
+export const MaisPedidasPlus = styled.TouchableOpacity`
+  align-items: center;
+  background-color: #222;
+  border-radius: 10px;
+  height: 150px;
+  justify-content: center;
+  margin: 0px 15px;
+  width: 150px;
 `;
 
 export const LoadingBanner = styled.View`
@@ -50,7 +68,6 @@ export const BannerScrollView = styled.ScrollView.attrs({
   showsHorizontalScrollIndicator: false,
   overScrollMode: 'never',
   disableIntervalMomentum: true,
-  pagingEnabled: true,
   decelerationRate: 'fast',
   snapToAlignment: 'end',
   snapToStart: true,
@@ -123,35 +140,58 @@ const AdvertiseText = styled.Text`
 
 export const Button = ({ icon, index, title, onPress }) => (
   <ButtonContainer onPress={onPress}>
-    <Icon name={icon} type="material-community" color={ icon === 'whatsapp' ? 'green' : 'white' } size={30} />    
+    <Icon name={icon} type="material-community" color={ icon === 'whatsapp' ? 'green' : 'white' } size={26} />    
     <Agroup>
-      <ButtonText size={24} color="#F24401" >
+      <ButtonText size={14} color="#F24401" >
         { title }
       </ButtonText>
-      <ButtonText size={18} color="#FFFFFF" >
+      <ButtonText size={12} color="#FFFFFF" >
         { index }
       </ButtonText>
     </Agroup>
   </ButtonContainer>
 );
 const Agroup = styled.View`
-  flex: 1;
+  flex: 1 0 auto;
   align-items: center;
   justify-content: center;
 `;
 
 const ButtonContainer = styled.TouchableOpacity`
   align-items: center;
-  background-color: #111;
+  background-color: #222;
   border-radius: 10px;
   flex-direction: row;
   justify-content: space-between;
-  margin: 0px 15px 5px;
-  padding: 10px 30px;
+  margin: 0px 5px 10px;
+  padding: 10px 10px;
+  flex: 1 0 auto;
 `;
 
 const ButtonText = styled.Text`
   color: ${props => props.color};
   font-size: ${props => props.size}px;
   font-weight: bold;
+`;
+
+export const HorizontalWrap = styled.View`
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding: 0 5px;
+  height: 200px;
+`;
+
+
+export const AdvertiseBanner = styled.TouchableOpacity`
+  align-items: center;
+  background-color: #222;
+  border-radius: 10px;
+  flex-direction: row;
+  margin: 15px;
+  justify-content: center;
+  padding: 15px;
+`;
+
+export const LastSpaceScrollview = styled.View`
+  width: 15px;
 `;

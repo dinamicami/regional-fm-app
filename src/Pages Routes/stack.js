@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Image, StatusBar, TouchableOpacity } from 'react-native';
+import { View, Image, SafeAreaView, TouchableOpacity, StatusBar } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { createStackNavigator } from "@react-navigation/stack";
 import { DrawerActions } from '@react-navigation/native';
@@ -38,14 +38,14 @@ const options = ({ navigation }) => ({
     elevation: 0
   },
   headerBackground: () => (
-    <View
-      style={{ flex: 1, paddingTop: 5, backgroundColor: '#0f0f0f' ,justifyContent: 'center', alignItems: 'center', }}
+    <SafeAreaView
+      style={{ flex: 1, paddingTop: 5, backgroundColor: '#0f0f0f', justifyContent: 'center', alignItems: 'center' }}
     >
       <Image
-        style={{ resizeMode: 'contain', width: 90, marginTop: StatusBar.currentHeight }}
+        style={{ resizeMode: 'contain', width: 90, }}
         source={require('../../assets/images/logo-regional-fm.png')}
       />
-    </View>
+    </SafeAreaView>
   )
 })
 
@@ -67,15 +67,16 @@ const optionsWithoutMenuButton = ({ navigation }) => ({
     elevation: 0
   },
   headerBackground: () => (
-    <View
-      style={{ flex: 1, paddingTop: 5, backgroundColor: '#0f0f0f' ,justifyContent: 'center', alignItems: 'center', }}
+    <SafeAreaView
+      style={{ flex: 1, paddingTop: 5, backgroundColor: '#0f0f0f', justifyContent: 'center', alignItems: 'center' }}
     >
       <Image
-        style={{ resizeMode: 'contain', width: 90, marginTop: StatusBar.currentHeight }}
+        style={{ resizeMode: 'contain', width: 90, }}
         source={require('../../assets/images/logo-regional-fm.png')}
       />
-    </View>
-  )
+    </SafeAreaView>
+  ),
+  
 })
 
 

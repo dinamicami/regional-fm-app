@@ -3,9 +3,17 @@
     "name": "Regional FM",
     "slug": "regionalfmapp",
     "privacy": "public",
+    "userInterfaceStyle": "dark",
+    "primaryColor": "#111111",
+    "notification": {
+      "color": "#171717",
+      "icon": "./assets/shell-regional.png",
+      "androidMode": "default",
+      "iosDisplayInForeground": true
+    },
     "ios": {
       "bundleIdentifier": "dmi.regionalfmapp",
-      "buildNumber": "2.1.1",
+      "buildNumber": "2.1.2",
       "supportsTablet": true,
       "infoPlist": {
         "UIBackgroundModes": [
@@ -15,7 +23,9 @@
     },
     "android": {
       "package": "com.dmi.regionalfm",
-      "versionCode": 5,
+      "versionCode": 6,
+      "googleServicesFile": "./google-services.json",
+      "useNextNotificationsApi": true,
       "permissions": [],
       "icon": "./assets/iconAndroid.png"
     },
@@ -25,7 +35,7 @@
       "web"
     ],
     "icon": "./assets/ios.png",
-    "version": "2.1.1",
+    "version": "2.1.2",
     "orientation": "portrait",
     "splash": {
       "image": "./assets/splash-image.png",

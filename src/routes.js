@@ -76,7 +76,7 @@ function TabBar() {
     const audio = new Audio.Sound();
 
     await Audio.setAudioModeAsync({
-      allowsRecordingIOS: true,
+      allowsRecordingIOS: false,
       playsInSilentModeIOS: true,
       interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX,
       staysActiveInBackground: true,

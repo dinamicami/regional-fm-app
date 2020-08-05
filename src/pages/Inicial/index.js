@@ -1,18 +1,24 @@
 import React from 'react';
 import moment from 'moment';
-import { tz } from "moment-timezone";
+import { tz } from 'moment-timezone';
 import * as ScreenOrientation from 'expo-screen-orientation';
-import { Linking, Dimensions } from "react-native";
+import { Linking, TouchableOpacity, ActivityIndicator, Image, View } from 'react-native';
 
-import { Button, Spinner, LoadingBanner, Container, Advertise, Banner, BannerScrollView, Title, SpacedView } from './styles';
+import {
+  Button, Spinner, LoadingBanner, Container, Advertise, LastSpaceScrollview, Banner, BannerScrollView, Title, SpacedView, MaisPedidas, MaisPedidasPlus, HorizontalWrap,
+} from './styles';
 import RadioPlayer from '../../Components/RadioPlayer';
 
 import { programacaoApi } from '../../Services/Programacao';
+import { maisPedidasApi } from '../../Services/MaisPedidas';
 import { midiasApi } from '../../Services/Midias';
+import { Icon } from 'react-native-elements';
 
 export default function Home({ navigation }) {
   const [banners, setBanners] = React.useState([]);
   const [program, setProgram] = React.useState({});
+  const [songs, setSongs] = React.useState([]);
+
   const bannerScrollView = React.useRef(null);
 
   function shuffle(array) {
@@ -86,6 +92,11 @@ export default function Home({ navigation }) {
           setBanners(data);
         }
       });
+
+      const response = await maisPedidasApi();
+      Promise.all(response).then((data) => {
+        setSongs(data);
+      })
     }
     getInitialData();
   }, []);
@@ -105,17 +116,21 @@ export default function Home({ navigation }) {
         }
       });
 
-      const banners = await midiasApi(null, 'banners', null, null, true, null);
-      Promise.all(banners).then((data) => {
-        if (data !== undefined) {
-          shuffle(data)
-          setBanners(data);
+      const scrollviewEffect = () => {
+        if (bannerScrollView !== null) {
+          bannerScrollView.current.scrollTo({ x: 30, y: 0, animated: true })
+          setTimeout(() => {
+            bannerScrollView.current.scrollTo({ x: 0, y: 0, animated: true });        
+          }, 300);
         }
-      });
+      }
+      scrollviewEffect();
     })
 
     return unsubscribe;
   }, [navigation]);
+
+  
 
   return (
     <Container>
@@ -136,23 +151,68 @@ export default function Home({ navigation }) {
           )
         }
       </BannerScrollView>
-      <Title>
-        Agora na Regional
-      </Title>
-
+      
+      <View style={{ alignItems: 'center', justifyContent: 'center', marginBottom: 10 }}>
+        <Title thin>
+          Agora na
+        </Title>
+        <Image source={require('../../../assets/images/logo-min.png')} style={{ resizeMode: 'contain', height: 40, marginTop: -15 }} />
+      </View>
+      
       <RadioPlayer item={program} navigation={navigation} />
       <Advertise title="Anuncie" subtitle="na regional" onPress={() => navigation.navigate('Anuncie') } />
-      <SpacedView />
-      <Title>
-        Contato
-      </Title>
-      
-      <Button index="Locutor" icon="whatsapp" title="(48) 99177 2494" onPress={() => Linking.openURL('https://wa.me/5548991772494') } />
-      <Button index="Promoções" icon="whatsapp" title="(48) 99182 2320" onPress={() => Linking.openURL('https://wa.me/5548991772494') } />
-      <Button index="Ao Vivo" icon="phone" title="(48) 3222 0268" onPress={() => Linking.openURL('tel:4832220268') } />
-      <Button index="Depto. Comercial" icon="phone" title="(48) 3222 1065" onPress={() => Linking.openURL('tel:32221065') } />
+      {/* <AdvertiseBanner onPress={() => navigation.navigate('Anuncie')}>
+        <Icon
+          name="bullhorn"
+          color="#f24401"
+          type="material-community"
+          size={30}
+          iconStyle={{ marginRight: 10, transform: [{ rotateZ: "-30deg" }] }}
+        />
+        <AdvertiseText color="#F24401" fontSize={16}>
+          Anuncie na Regional
+        </AdvertiseText>
+      </AdvertiseBanner> */}
 
       <SpacedView />
+      <Title thin>
+        Mais pedidas
+      </Title>
+
+      <BannerScrollView>
+        {
+          songs[0] ? (
+            <>
+              {songs.map(item => (
+                <TouchableOpacity onPress={() => navigation.navigate('MaisTocadas')}>
+                  <MaisPedidas
+                    key={item.imagePath}
+                    source={{ uri: `http://radioregionalfm.com.br/${item.imagePath}` }}
+                  />
+                </TouchableOpacity>
+              ))}
+            </>            
+          ) : (
+            <MaisPedidasPlus>
+              <ActivityIndicator color="#F24401" size="small" />
+            </MaisPedidasPlus>
+          )
+        }
+        <LastSpaceScrollview />
+      </BannerScrollView>
+
+      <SpacedView />
+      <Title thin>
+        Contatos
+      </Title>
+      
+      <HorizontalWrap>
+        <Button index="Locutor" icon="whatsapp" title="(48) 99177 2494" onPress={() => Linking.openURL('https://wa.me/5548991772494') } />
+        <Button index="Promoções" icon="whatsapp" title="(48) 99182 2320" onPress={() => Linking.openURL('https://wa.me/5548991772494') } />
+        <Button index="Ao Vivo" icon="phone" title="(48) 3222 0268" onPress={() => Linking.openURL('tel:4832220268') } />
+        <Button index="Depto. Comercial" icon="phone" title="(48) 3222 1065" onPress={() => Linking.openURL('tel:32221065') } />
+      </HorizontalWrap>
+
     </Container>
   );
 }

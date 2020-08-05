@@ -20,6 +20,7 @@ export const Player = ({ program, navigation }) => {
           <Title>
             Rádio Regional FM
           </Title>
+          <SpacedView />
           <Title>
             { program.name ? program.name : 'Carregando...' }
           </Title>
@@ -37,11 +38,15 @@ export const Player = ({ program, navigation }) => {
   );
 }
 
+const SpacedView = styled.View`
+  height: 10px;
+`;
+
 const Touch = styled.TouchableOpacity``;
 
 const Container = styled.View`
   background-color: #222;
-  border-radius: 4px;
+  border-radius: 10px;
   flex-direction: row;
   margin: 0px 15px;
   padding: 10px;
@@ -87,6 +92,7 @@ const Title = styled.Text`
   color: #fff;
   ${ Dimensions.get('screen').width > 450 ? 'font-size: 26px;'  : 'font-size: 18px;' }
   font-weight: bold;
+  margin-top: 10px;
 `;
 const Badge = styled.Text.attrs({
   numberOfLines: 1
@@ -96,5 +102,7 @@ const Badge = styled.Text.attrs({
   color: #fff;
   flex: 0 1 auto;
   ${ Dimensions.get('screen').width > 450 ? 'font-size: 18px;'  : 'font-size: 14px;' }
-  padding: 0px 5px;
+  ${ Dimensions.get('screen').width > 450 ? 'padding: 5px 10px;'  : 'padding: 5px 5px;' }
+  
+  margin-bottom: 7px;
 `;
