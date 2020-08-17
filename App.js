@@ -25,7 +25,7 @@ export default function App () {
 
   React.useEffect(() => {
     registerForPushNotificationsAsync().then(token => {
-      setExpoPushToken(token)
+      setExpoPushToken(token);
     });
 
     // This listener is fired whenever a notification is received while the app is foregrounded
@@ -64,26 +64,28 @@ export default function App () {
 async function registerForPushNotificationsAsync() {
   let token;
 
-  const { status } = await Permissions.getAsync(Permissions.NOTIFICATIONS);
-  let finalStatus = status;
+  const { status: existingStatus } = await Permissions.getAsync(Permissions.NOTIFICATIONS);
+  let finalStatus = existingStatus;
   
-  if (status !== 'granted') {
+  if (existingStatus !== 'granted') {
     const { status } = await Permission.askAsync(Permission.NOTIFICATIONS);
     finalStatus = status;
   }
 
   if (finalStatus !== 'granted') { return; }
 
-  token = await Notifications.getExpoPushTokenAsync();
+  token = (await Notifications.getExpoPushTokenAsync()).data;
 
   if (Platform.OS === 'android') {
     Notifications.setNotificationChannelAsync('default', {
       name: 'default',
       importance: Notifications.AndroidImportance.MAX,
       vibrationPattern: [0, 250, 250, 250],
-      lightColor: '#FF2B7ED7',
+      lightColor: '#FF231F7C'
     });
   }
+
+  console.log(token)
 
   fetch('https://push-services.herokuapp.com/subscribe', {
     method: 'POST',
