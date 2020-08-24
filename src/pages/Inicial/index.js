@@ -184,9 +184,8 @@ export default function Home({ navigation }) {
           songs[0] ? (
             <>
               {songs.map(item => (
-                <TouchableOpacity onPress={() => navigation.navigate('MaisTocadas')}>
+                <TouchableOpacity key={item.imagePath} onPress={() => navigation.navigate('MaisTocadas')}>
                   <MaisPedidas
-                    key={item.imagePath}
                     source={{ uri: `http://radioregionalfm.com.br/${item.imagePath}` }}
                   />
                 </TouchableOpacity>

@@ -70,19 +70,31 @@ export const PlayImage = styled.Image`
   width: 70px;
 `;
 
-export const VideoControls = ({ playIcon, onPlayPress }) => (
+export const VideoControls = ({ playIcon, onPlayPress, onReplayPress }) => (
   <VideoControlsContainer>
-    <PlayTouchable onPress={onPlayPress}>
+    <PlayTouchable size={40} onPress={onPlayPress}>
       <Icon name={playIcon} type="material-community" color="#fff" />
+    </PlayTouchable>
+
+    <PlayTouchable size={30} style={{ marginLeft: 5 }} onPress={onReplayPress}>
+      <Icon name="replay" type="material-community" color="#fff" />
     </PlayTouchable>
   </VideoControlsContainer>
 )
 
 export const VideoControlsContainer = styled.View`
-  background-color: #000;
   height: 40px;
   flex-direction: row;
+  margin-top: 10px;
   padding: 0px 20px;
+  align-items: center;
 `;
 
-export const PlayTouchable = styled.TouchableOpacity``;
+export const PlayTouchable = styled.TouchableOpacity`
+  background-color: rgba(255, 255, 255, 0.3);
+  height: ${props => props.size}px;
+  width: ${props => props.size}px;
+  border-radius: 20px;
+  align-items: center;
+  justify-content: center;
+`;

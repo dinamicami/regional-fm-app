@@ -1,5 +1,5 @@
 import React from 'react';
-import { SafeAreaView, StatusBar} from 'react-native';
+import { SafeAreaView, StatusBar, Platform} from 'react-native';
 import * as ScreenOrientation from 'expo-screen-orientation';
 
 import { PlayerContextProvider } from './src/context';
@@ -35,7 +35,7 @@ export default function App () {
 
     // This listener is fired whenever a user taps on or interacts with a notification (works when app is foregrounded, backgrounded, or killed)
     responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
-      console.log(response);
+      // console.log(response);
     });
 
     return () => {
@@ -85,16 +85,16 @@ async function registerForPushNotificationsAsync() {
     });
   }
 
-  console.log(token)
-
-  fetch('https://push-services.herokuapp.com/subscribe', {
+  // console.log(`Starting subscribe with ${token}`);
+  await fetch('https://push-services.herokuapp.com/subscribe', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
       application: "2",
-      token: token.data,
+      token: token,
+      platform: Platform.OS
     })
   }).then((response) => {
     response.json().then((data) => {

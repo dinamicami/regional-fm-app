@@ -1,12 +1,19 @@
 import React from 'react';
-import { Alert, Linking, ScrollView } from 'react-native';
+import { Alert, Linking, ScrollView, Dimensions } from 'react-native';
+import { Audio, Video } from 'expo-av';
+import PlayerContext from '../../../context';
+
+import { VideoControls } from '../styles';
 
 import * as ScreenOrientation from 'expo-screen-orientation';
 import { Break, Button, Container, DateInput, Info, LabelRadio, PhoneInput, PriceInfo, PriceLabel, RadioAudioButton, RadioOption, SubTitle, Text, Textarea, TextInput, Title, Vertical } from './styles';
 
 export default function Form() {
+  const { setPlayerStatus } = React.useContext(PlayerContext);
   const [announcement, setAnnouncement] = React.useState({ name: '', surname: '', whatsapp: '', enterprise: '', enterpriseMail: '', initialDate: '', finalDate: '', description: '', quantity: '1', type: 80 });
-
+  
+  const videoRef = React.createRef();
+  const [isVideoPlaying, setIsVideoPlaying] = React.useState(true);
   // Lock orientation
   React.useEffect(() => {
     async () => {
@@ -40,7 +47,48 @@ export default function Form() {
   return(
     <Container>
       <ScrollView style={{ padding: 15, paddingBottom: 0 }}>
-        <Title>Anuncie na Regional</Title>
+        <Video
+          ref={videoRef}
+          shouldPlay={true}
+          resizeMode={Video.RESIZE_MODE_CONTAIN}
+          source={{ uri: 'http://radioregionalfm.com.br/midias/app/Aplicativo%20002.mp4' }}
+          posterSource={require('../../../../assets/images/cover.jpg')}
+          posterStyle={{
+            width: Dimensions.get('screen').width-30,
+            height: 200,
+          }}
+          style={{
+            borderRadius: 10,
+            elevation: 10,
+            width: Dimensions.get('screen').width-30,
+            height: 200,
+            backgroundColor: '#000'
+          }}
+          usePoster={true}
+        />
+
+          <VideoControls
+            playIcon={isVideoPlaying ? 'pause' : 'play'}
+            onPlayPress={() => {
+              if (isVideoPlaying) {
+                setIsVideoPlaying(false);
+                videoRef.current.pauseAsync();
+              } else {
+                setIsVideoPlaying(true);
+                setPlayerStatus(false);
+                videoRef.current.playAsync();
+              }
+            }}
+
+            onReplayPress={() => {
+              setIsVideoPlaying(true);
+              setPlayerStatus(false);
+              videoRef.current.replayAsync();
+            }}
+          />
+
+
+        <Title style={{ marginTop: 15 }} >Anuncie na Regional</Title>
         <Info>
           Agora você pode impulsionar a sua empresa com a Rádio Regional FM. Neste espaço você pode 
           criar um comercial personalizado para passar na rádio.
@@ -48,7 +96,6 @@ export default function Form() {
         <SubTitle>Suas informações</SubTitle>
         <TextInput
           autoCompleteType="name"
-          autoFocus
           placeholder="Nome" value={announcement.name}
           onChangeText={name => setAnnouncement({ ...announcement, name })}
         />
