@@ -22,7 +22,7 @@ export default function App () {
   useEffect(() => {
 
     async function loadVideoURL() {
-      const response = await axios.get('https://graph-video.facebook.com/130508740362732/live_videos?fields=id,title,embed_html.limit(21)&access_token=EAAlqGxT0SQwBAMBhuL9f08hsHOqEbebN1w0HXoSjC4dWT4JUbJ0lL14p96IyrFKxomuLNiSuginLvYYcOoqNZB4IxDuKvJqXTDS3pYwZB4IU64BxrA39ZApt3b2ifPow1WWyqe8a98BCQtYzT7MtYTFiQ2Cznz9igygT9neYAZDZD')
+      const response = await axios.get('https://graph-video.facebook.com/130508740362732/live_videos?fields=id,title,embed_html.limit(21)&access_token=EAAlqGxT0SQwBACPNpOxd9rYva1FpYZC8PnmuNLB9cZBZCjWqJfUoclNnVFyGGbqfOzZCQYsGMdxYgUr7Kf3QdWfBfxgDXK6y7WOrugtKY6rICzg77K5JNVYSVvZB1ANrDUW4pcR0Qy2wVsvCECNuydRfH08zzdc6QeH0bMpcinAZDZD')
       let urls = [];
       let lastLive = {};
       let firstLive = true;
@@ -69,7 +69,7 @@ export default function App () {
             Live Streaming
           </Text>
 
-          <View style={{ backgroundColor: "#fff", width: Dimensions.get('window').width, height: Dimensions.get('window').width }}>
+          <View style={{ backgroundColor: "#fff", width: Dimensions.get('window').width, height: Dimensions.get('window').width/2 }}>
             <WebView 
               style={styles.video}
               source={{ uri: lastLivesURL.url }}
@@ -79,7 +79,9 @@ export default function App () {
             />
           </View>
             
-          <View style={{ flexWrap: 'wrap', flexDirection: 'row', justifyContent: 'space-between' }}>
+          
+          <View style={{ marginTop: 60, flexWrap: 'wrap', flexDirection: 'row', justifyContent: 'space-between' }}>
+            <Text style={styles.text}>Outras lives</Text>
             <SafeAreaView>
               <FlatList
                 data={livesURL}

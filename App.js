@@ -1,5 +1,5 @@
 import React from 'react';
-import { SafeAreaView, StatusBar, Platform} from 'react-native';
+import { StatusBar, Platform} from 'react-native';
 import * as ScreenOrientation from 'expo-screen-orientation';
 
 import { PlayerContextProvider } from './src/context';
@@ -62,18 +62,23 @@ export default function App () {
 }
 
 async function registerForPushNotificationsAsync() {
+  console.log(`>> starting process`);
   let token;
 
   const { status: existingStatus } = await Permissions.getAsync(Permissions.NOTIFICATIONS);
   let finalStatus = existingStatus;
   
   if (existingStatus !== 'granted') {
-    const { status } = await Permission.askAsync(Permission.NOTIFICATIONS);
+    console.log(`>> asking for permissions`);
+    const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
     finalStatus = status;
   }
 
-  if (finalStatus !== 'granted') { return; }
+  
+  if (finalStatus !== 'granted') { console.log(`>> no permissions granted`); return; }
+  console.log(`>> permissions granted`);
 
+  console.log(`>> fetching token`);
   token = (await Notifications.getExpoPushTokenAsync()).data;
 
   if (Platform.OS === 'android') {
@@ -85,7 +90,7 @@ async function registerForPushNotificationsAsync() {
     });
   }
 
-  // console.log(`Starting subscribe with ${token}`);
+  console.log(`>> starting subscribe with ${token}`);
   await fetch('https://push-services.herokuapp.com/subscribe', {
     method: 'POST',
     headers: {
@@ -99,10 +104,15 @@ async function registerForPushNotificationsAsync() {
   }).then((response) => {
     response.json().then((data) => {
       switch(data.code) {
-        case 'success-subscribe': break;
-        case 'already-subscrived': break;
+        case 'success-subscribe': console.log('>> subscribed'); break;
+        case 'already-subscribed': console.log('>> already subscribed'); break;
         case 'error-subscribe': 
+          console.log('>> error on subscribing'); 
           Alert.alert('Erro', 'Erro ao inscrever-se para notificações', [{ text: 'Ok' }]);
+          break;
+        default:
+          console.log('>> default escope');
+          console.log(data);
           break;
       }
     });
