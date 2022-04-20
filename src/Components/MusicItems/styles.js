@@ -13,52 +13,50 @@ export const Row = styled.View`
 export const MusicItem = ({ id, source, actualPlaying, setActualPlayer, image, description }) => {
   const { playerStatus, setPlayerStatus } = React.useContext(PlayerContext);
   const [isPlaying, setIsPlaying] = React.useState(false);
-  const sound = React.useMemo(async () => {
+  
+  const sound = async () => {
     const soundObject = new Audio.Sound();
     await soundObject.loadAsync(source);
     return soundObject
-  }, []);
+  }
 
   React.useEffect(() => {
     setActualPlayer(null);
   }, [playerStatus])
 
   React.useEffect(() => {
-    async function forceStop() {
-      try {
-        await (await sound).pauseAsync();
+    sound().then(sound => {
+      if (actualPlaying !== id) {
         setIsPlaying(false);
-      } catch (err) {
-        alert('Hum, algo deu errado.');
-        console.log(err);
+        sound.pauseAsync();
       }
-    }
-    if (actualPlaying !== id) {
-      forceStop();
-    }
+    })
+
   }, [actualPlaying])
 
-  async function player() {
-    if (isPlaying) {
+  function player() {
+    sound().then(sound => {
+      if (isPlaying) {
       try {
-        await (await sound).pauseAsync();
+        sound.pauseAsync();
         setIsPlaying(false);
         setActualPlayer(null);
       } catch (err) {
         alert('Hum, algo deu errado.')
         console.log(err);
       }
-    } else {
-      try {
-        await (await sound).replayAsync();
-        setPlayerStatus(false);
-        setIsPlaying(true);
-        setActualPlayer(id);
-      } catch (err) {
-        alert('Hum, algo deu errado.')
-        console.log(err);
+      } else {
+        try {
+          sound.replayAsync();
+          setPlayerStatus(false);
+          setIsPlaying(true);
+          setActualPlayer(id);
+        } catch (err) {
+          alert('Hum, algo deu errado.')
+          console.log(err);
+        }
       }
-    }
+    })
   }
 
   return (
