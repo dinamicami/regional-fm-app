@@ -17,7 +17,7 @@ export default function Podcasts() {
       <FloatingButton />
       <WebView
         style={{ backgroundColor: '#111' }}
-        source={{uri: 'http://www.radioregionalfm.com.br/Podcast/app=true'}}
+        source={{uri: 'https://www.radioregionalfm.com.br/Podcast/app=true'}}
         allowsBackForwardNavigationGestures={true}
         overScrollMode={'never'}
         mediaPlaybackRequiresUserAction={false}
