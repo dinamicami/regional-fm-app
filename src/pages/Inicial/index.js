@@ -207,7 +207,7 @@ export default function Home({ navigation }) {
       
       <HorizontalWrap>
         <Button index="Locutor" icon="whatsapp" title="(48) 99177 2494" onPress={() => Linking.openURL('https://wa.me/5548991772494') } />
-        <Button index="Promoções" icon="whatsapp" title="(48) 99182 2320" onPress={() => Linking.openURL('https://wa.me/5548991772494') } />
+        <Button index="Promoções" icon="whatsapp" title="(48) 99182 2320" onPress={() => Linking.openURL('https://wa.me/5548991822320') } />
         <Button index="Ao Vivo" icon="phone" title="(48) 3222 0268" onPress={() => Linking.openURL('tel:4832220268') } />
         <Button index="Depto. Comercial" icon="phone" title="(48) 3222 1065" onPress={() => Linking.openURL('tel:32221065') } />
       </HorizontalWrap>

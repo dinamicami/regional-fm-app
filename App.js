@@ -17,6 +17,7 @@ Notifications.setNotificationHandler({
   })
 });
 
+
 export default function App () {
   const [expoPushToken, setExpoPushToken] = React.useState('');
   const [notification, setNotification] = React.useState(false);
