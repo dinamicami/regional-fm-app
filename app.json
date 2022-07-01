@@ -13,7 +13,7 @@
     },
     "ios": {
       "bundleIdentifier": "dmi.regionalfmapp",
-      "buildNumber": "1.0.0",
+      "buildNumber": "1",
       "supportsTablet": true,
       "infoPlist": {
         "UIBackgroundModes": [
@@ -22,9 +22,8 @@
       }
     },
     "android": {
-      "package": "com.dmi.regionalfm",
-      "versionCode": 1,
-      "googleServicesFile": "./google-services.json",
+      "package": "com.dmi.regionalfm.v2",
+      "versionCode": 2,
       "useNextNotificationsApi": true,
       "permissions": [],
       "icon": "./assets/iconAndroid.png"
@@ -35,7 +34,7 @@
       "web"
     ],
     "icon": "./assets/ios.png",
-    "version": "1.0.0",
+    "version": "2.2.1",
     "orientation": "portrait",
     "splash": {
       "image": "./assets/splash-image2.1.4.png",

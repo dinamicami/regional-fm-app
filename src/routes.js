@@ -172,7 +172,7 @@ const tabBarOptions = {
   style: {
     backgroundColor: '#050505',
     overflow: 'visible',
-    height: 50,
+    height: Platform.OS === 'android' ? 50 : 70,
   },
   keyboardHidesTabBar: true,
 }

@@ -30,6 +30,7 @@ export default function Podcasts({navigation}) {
         allowsBackForwardNavigationGestures={true}
         overScrollMode={'never'}
         mediaPlaybackRequiresUserAction={false}
+        javaScriptEnabled
       />
     </>
   )
